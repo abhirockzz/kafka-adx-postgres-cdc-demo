@@ -1,0 +1,18 @@
+{
+    "name": "adx-orders-sink",
+    "config": {
+        "connector.class": "com.microsoft.azure.kusto.kafka.connect.sink.KustoSinkConnector",
+        "flush.size.bytes": 10000,
+        "flush.interval.ms": 30000,
+        "tasks.max": 2,
+        "topics": "myserver.retail.orders_info",
+        "kusto.tables.topics.mapping": "[{'topic': 'myserver.retail.orders_info','db': '<enter database name>', 'table': 'Orders','format': 'json', 'mapping':'OrdersEventMapping'}]",
+        "aad.auth.authority": "<enter service principal tenant ID>",
+        "kusto.url": "https://ingest-<enter cluster name>.southeastasia.kusto.windows.net",
+        "aad.auth.appid": "<enter service principal app ID>",
+        "aad.auth.appkey": "<enter service principal password>",
+        "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+        "transforms": "unwrap",
+        "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState"
+    }
+}
